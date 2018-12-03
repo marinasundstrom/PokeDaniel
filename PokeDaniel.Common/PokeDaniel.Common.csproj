@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Class1.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="mandel.ogg" />
+    <None Remove="duck louder.ogg" />
+    <None Remove="poke.mp3" />
+    <None Remove="duck.ogg" />
+    <None Remove="mandel.mp3" />
+    <None Remove="duck.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="poke.mp3" />
+    <EmbeddedResource Include="mandel.mp3" />
+    <EmbeddedResource Include="duck.mp3" />
+  </ItemGroup>
+</Project>
