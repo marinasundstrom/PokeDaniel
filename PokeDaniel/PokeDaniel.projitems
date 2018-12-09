@@ -19,5 +19,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Services\AudioService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\IPokeClient.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\PokeClient.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\PokeEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModelLocator.cs" />
   </ItemGroup>
 </Project>
