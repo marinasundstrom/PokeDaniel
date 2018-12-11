@@ -1,0 +1,101 @@
+﻿@page "/"
+@implements IDisposable
+@inject IPokeClient PokeClient
+@inject Microsoft.AspNetCore.Blazor.Services.IUriHelper UriHelper
+@using PokeDaniel.Services
+
+<div style="margin: auto; text-align: center">
+    <br />
+    <br />
+    <img src="/img/daniel.jpeg" style="border-radius: 50%;" alt="daniel" />
+    <br />
+    <br />
+    <h1>@PokeMessage</h1>
+    <br />
+    <br />
+    @if (CanPoke)
+    {
+        <button onclick="@OnPoke">Poke</button>
+    }
+
+</div>
+
+@functions {
+    ulong Pokes;
+    bool CanPoke;
+    string PokeMessage;
+
+    protected override async Task OnInitAsync()
+    {
+        await base.OnInitAsync();
+
+        UriHelper.OnLocationChanged += OnLocationChanges;
+
+        RefreshType();
+
+        Pokes = await PokeClient.GetPokesAsync();
+
+        UpdatePokeMessage();
+
+        PokeClient.Poked += OnPoked;
+
+        await PokeClient.StartAsync();
+    }
+
+    async Task OnPoke(UIMouseEventArgs args)
+    {
+        await PokeClient.PokeAsync();
+    }
+
+    async void OnPoked(object sender, PokeEventArgs args)
+    {
+        ulong pokes = args.Pokes;
+
+        Pokes = pokes;
+
+        UpdatePokeMessage();
+
+        this.StateHasChanged();
+
+        if (pokes % 100 == 0)
+        {
+            await AudioHelpers.PlayMandel();
+        }
+        else if (pokes % 10 == 0)
+        {
+            await AudioHelpers.PlayDuck();
+        }
+        else
+        {
+            await AudioHelpers.PlayPoke();
+        }
+    }
+
+    void UpdatePokeMessage()
+    {
+        if (Pokes == 1)
+        {
+            PokeMessage = $"Daniel has been poked";
+        }
+        else
+        {
+            PokeMessage = $"Daniel has been poked {Pokes} times!";
+        }
+    }
+
+    private void OnLocationChanges(object sender, string location) => RefreshType();
+
+    private void RefreshType()
+    {
+        var uri = new Uri(UriHelper.GetAbsoluteUri());
+        CanPoke = Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(uri.Query).TryGetValue("poke", out var type) ? bool.Parse(type.First()) : false;
+        StateHasChanged();
+    }
+
+    public async void Dispose()
+    {
+        await PokeClient.StopAsync();
+        PokeClient.Poked -= OnPoked;
+        UriHelper.OnLocationChanged -= OnLocationChanges;
+    }
+}
