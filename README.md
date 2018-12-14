@@ -2,7 +2,8 @@
 
 Poking fun at my consultant manager [Daniel Åberg](https://se.linkedin.com/in/abergdaniel) :)
 
-App for iOS and Android, written in C# and Xamarin.Forms.
+App for iOS and Android, written in C# and Xamarin.Forms. Web App in Blazor.
+ASP.NET Core cloud backend.
 
 Watch the [video demo](https://www.youtube.com/watch?v=09-_cwFmLh0)
 
@@ -20,6 +21,10 @@ This is a little project that initially came about on the train on my way to our
 
 Initially we got it to work on Android. The day after I got it to run on iPhone, as well.
 
+## Features
+* Apps for iOS, Android and Web (Blazor)
+* Cloud-backend (ASP.NET Core)
+
 ## Special thanks
 Thanks to my colleague [Joakim Janstad](https://www.linkedin.com/in/joakimjanstad) for ideas and moral support.
 
@@ -30,6 +35,3 @@ Thanks to my colleague [Joakim Janstad](https://www.linkedin.com/in/joakimjansta
 
 ## Platforms
 iOS and Android.
-
-## Release
-None, as of yet.
